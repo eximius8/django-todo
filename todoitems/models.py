@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 
 class TodoItem(models.Model):
@@ -18,6 +19,8 @@ class TodoItem(models.Model):
         ('F', 'Завершённая'),        
     )
     status = models.CharField(max_length=1, blank=False, default = 'N', choices=CHOICES)
+
+    history = HistoricalRecords()
 
 
     def __str__(self):

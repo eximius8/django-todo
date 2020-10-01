@@ -17,7 +17,8 @@ class TodoItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return user.todoitems.all()#TodoItem.objects.filter(owner=user).order_by('-created_date')
+        user_todo_items = user.todoitems.all()
+        return user_todo_items#TodoItem.objects.filter(owner=user).order_by('-created_date')
        
     def list(self, request):        
         serializer = TodoItemSerializer(self.get_queryset(), many=True)
