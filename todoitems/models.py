@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 
 class TodoItem(models.Model):
     """
@@ -8,7 +8,7 @@ class TodoItem(models.Model):
 
     name = models.CharField(max_length=50, blank=False)
     description = models.TextField(max_length=3000, blank=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='todoitems', on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True, blank=False)
     expected_finish_date = models.DateTimeField(blank=True, null=True)
     CHOICES = (
