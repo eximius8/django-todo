@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'simple_history',
+    #'django_filters',
     # local
     'todoitems.apps.TodoitemsConfig',
 
