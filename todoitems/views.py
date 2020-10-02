@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions, filters
 from rest_framework.response import Response
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 # local imports
@@ -19,6 +19,21 @@ class TodoItemViewSet(viewsets.ModelViewSet):
     
 
     def get_queryset(self):
+        """
+        Several query parameters can be specified in url:
+            status - filters by status of TodoItem:
+                    ('N', 'Новая'), ('P', 'Запланированная'), ('W', 'в Работе'), ('F', 'Завершённая')
+            null - filters TodoItem with no record of expected_finish_date (= null)
+            start - date in the form "YYYY-mm-dd" (2020-12-31) returns query with expected_finish_date of TodoItem greater than start 
+            end - same as start but expected_finish_date is lower than end
+            if both start and end are provided returns query with expected_finish_date between start and end
+            If start only is given 
+            
+            example:
+            http://example.com/api/todo-items/?status=P&start=2020-08-01&end=2021-01-01
+            will return all TodoItems with status ('P', 'Запланированная') and expected_finish_date between 1 August 2020 and 1January 2021
+
+        """
         user = self.request.user
         user_todo_items = user.todoitems.all()
         status = self.request.query_params.get('status', None)
