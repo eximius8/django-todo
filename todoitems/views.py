@@ -22,9 +22,27 @@ class TodoItemViewSet(viewsets.ModelViewSet):
         user = self.request.user
         user_todo_items = user.todoitems.all()
         status = self.request.query_params.get('status', None)
-        #younger_than = self.request.query_params.get('status', None)
+        is_null = self.request.query_params.get('null', None)
         if status is not None:
             user_todo_items = user_todo_items.filter(status=status)
+        if is_null is not None:
+            user_todo_items = user_todo_items.filter(expected_finish_date__isnull=True)
+        else:
+            try:
+                start = datetime.strptime(self.request.query_params.get('start', None), "%Y-%m-%d").date()
+            except:
+                start = None
+            try:
+                end = datetime.strptime(self.request.query_params.get('end', None), "%Y-%m-%d").date()
+            except:
+                end = None            
+
+            if start is not None and end is not None:                
+                user_todo_items = user_todo_items.filter(expected_finish_date__range=(start, end))
+            elif start is not None:
+                user_todo_items = user_todo_items.filter(expected_finish_date__gte=start)
+            elif end is not None:
+                user_todo_items = user_todo_items.filter(expected_finish_date__lte=end)
 
         return user_todo_items#TodoItem.objects.filter(owner=user).order_by('-created_date')
        

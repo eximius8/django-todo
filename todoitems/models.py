@@ -11,7 +11,7 @@ class TodoItem(models.Model):
     description = models.TextField(max_length=3000, blank=False)
     owner = models.ForeignKey('auth.User', related_name='todoitems', on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True, blank=False)
-    expected_finish_date = models.DateTimeField(blank=True, null=True)
+    expected_finish_date = models.DateField(blank=True, null=True)
     CHOICES = (
         ('N', 'Новая'),
         ('P', 'Запланированная'),
