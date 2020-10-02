@@ -26,9 +26,10 @@ docker-compose up
 ## Usage
 
 get all todo items
-
+```
 /api/todo-items/
-
+```
 get a particular item by ID
-
-/api/todo-items/<pk>/
+```
+/api/todo-items/<ID>/
+```
