@@ -3,4 +3,5 @@ djangorestframework
 django-simple-history
 #psycopg2
 psycopg2-binary>=2.8
+django-rest-registration
 #django-filter

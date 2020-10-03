@@ -23,6 +23,11 @@ Run image
 docker-compose up
 ```
 
+View logs from django:
+```
+docker-compose logs -f web
+```
+
 ## Usage
 
 get all todo items

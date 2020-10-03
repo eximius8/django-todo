@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'simple_history',
+    'rest_framework.authtoken',
+    'rest_registration',
     #'django_filters',
     # local
     'todoitems.apps.TodoitemsConfig',
@@ -99,6 +101,19 @@ DATABASES = {
         'HOST': 'db',
         'PORT': 5432,
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+REST_REGISTRATION = {
+    'REGISTER_VERIFICATION_ENABLED': False,
+    'REGISTER_EMAIL_VERIFICATION_ENABLED': False,
+    'RESET_PASSWORD_VERIFICATION_ENABLED': False,
 }
 
 
