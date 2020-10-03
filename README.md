@@ -35,8 +35,8 @@ Registration and login are implemented with [django-rest-registration](https://p
 ### Register
 ```
 curl --header "Content-Type: application/json" --request POST\
---data '{"username":"api-user","password":"testing321", "password_confirm":"testing321"}'\
-http://127.0.0.1:8000/accounts/register/
+ --data '{"username":"api-user","password":"testing321", "password_confirm":"testing321"}'\
+ http://127.0.0.1:8000/accounts/register/
 ```
 Response:
 ```
@@ -46,8 +46,8 @@ Response:
 
 ```
 curl --header "Content-Type: application/json" --request POST\
---data '{"login":"api-user","password":"testing321"}'\
-http://127.0.0.1:8000/accounts/login/
+ --data '{"login":"api-user","password":"testing321"}'\
+ http://127.0.0.1:8000/accounts/login/
 ```
 Response:
 ```
@@ -56,18 +56,93 @@ Response:
 ### Logout
 
 ```
-curl -X POST http://127.0.0.1:8000/accounts/logout/ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+curl -X POST http://127.0.0.1:8000/accounts/logout/\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
 ```
 Response:
 ```
 {"detail":"Logout successful"}
 ```
 
-get all todo items
+### Create new TodoItem
+
 ```
-/api/todo-items/
+curl -X POST http://127.0.0.1:8000/api/todo-items/\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'\
+ --header "Content-Type: application/json"\
+ --data '{"name":"Todo item 1", "description":"Description todo item 1", "expected_finish_date":null, "status":"N"}'
 ```
-get a particular item by ID
+Response:
 ```
-/api/todo-items/<ID>/
+{"id":4,"name":"Todo item 1","description":"Description todo item 1","created_date":"2020-10-03T20:06:14.472946Z","expected_finish_date":null,"status":"N"}
+```
+
+### See my TodoItems
+
+```
+curl -X GET http://127.0.0.1:8000/api/todo-items/\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+```
+Response:
+```
+[
+    {
+        "id":4,
+        "name":"Todo item 1",
+        "description":"Description todo item 1",
+        "created_date":"2020-10-03T20:06:14.472946Z",
+        "expected_finish_date":null,
+        "status":"N"
+    }
+]
+```
+### See particular item
+
+```
+curl -X GET http://127.0.0.1:8000/api/todo-items/4/\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+```
+Response. History is implemented with [django-simple-history](https://pypi.org/project/django-simple-history/)
+```
+{
+    "name":"Todo item 1",
+    "description":"Description todo item 1",
+    "created_date":"2020-10-03T20:06:14.472946Z",
+    "expected_finish_date":null,
+    "status":"N",
+    "history":[
+        {
+            "id":4,
+            "name":"Todo item 1",
+            "description":"Description todo item 1",
+            "created_date":"2020-10-03T20:06:14.472946Z",
+            "expected_finish_date":null,
+            "status":"N",
+            "owner_id":4,
+            "history_id":5,
+            "history_date":"2020-10-03T20:06:14.476899Z",
+            "history_change_reason":null,
+            "history_type":"+",
+            "history_user_id":4
+        }]
+}
+```
+### Change Todo item
+
+```
+curl -X PUT http://127.0.0.1:8000/api/todo-items/4/\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'\
+ --header "Content-Type: application/json"\
+ --data '{"name":"Updated Todo item 1", "description":"Updated description todo item 1", "expected_finish_date":"2020-10-20", "status":"P"}'
+```
+Response
+```
+{
+    "id":4,
+    "name":"Updated Todo item 1",
+    "description":"Updated description todo item 1",
+    "created_date":"2020-10-03T20:06:14.472946Z",
+    "expected_finish_date":"2020-10-20",
+    "status":"P"
+}
 ```
