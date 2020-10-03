@@ -105,6 +105,7 @@ Response:
 ```
 #### Filter by status or by expected finish data
 For details check [views.py](https://github.com/eximius8/django-todo/blob/master/todoitems/views.py)
+
 By status
 ```
 curl -X GET http://127.0.0.1:8000/api/todo-items/?status=N\
