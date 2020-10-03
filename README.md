@@ -30,6 +30,31 @@ docker-compose logs -f web
 
 ## Usage
 
+Registration and login are implemented with [django-rest-registration](https://pypi.org/project/django-rest-registration/)
+
+### Register
+'''
+curl --header "Content-Type: application/json" --request POST --data '{"username":"api-user","password":"testing321", "password_confirm":"testing321"}' http://127.0.0.1:8000/accounts/register/
+'''
+
+{"id":5,"username":"testuser","first_name":"","last_name":"","email":""}
+
+### Login
+
+```
+curl --header "Content-Type: application/json" --request POST --data '{"login":"api-user","password":"testing321"}' http://127.0.0.1:8000/accounts/login/
+```
+
+{"detail":"Login successful","token":"88268a1384ca93ca03845578bc0daa7ef90817df"}
+
+### Logout
+
+```
+curl -X POST http://127.0.0.1:8000/accounts/logout/ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+```
+
+{"detail":"Logout successful"}
+
 get all todo items
 ```
 /api/todo-items/
