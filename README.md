@@ -74,7 +74,14 @@ curl -X POST http://127.0.0.1:8000/api/todo-items/\
 ```
 Response:
 ```
-{"id":4,"name":"Todo item 1","description":"Description todo item 1","created_date":"2020-10-03T20:06:14.472946Z","expected_finish_date":null,"status":"N"}
+{
+    "id":4,
+    "name":"Todo item 1",
+    "description":"Description todo item 1",
+    "created_date":"2020-10-03T20:06:14.472946Z",
+    "expected_finish_date":null,
+    "status":"N"
+}
 ```
 
 ### See my TodoItems
@@ -96,6 +103,24 @@ Response:
     }
 ]
 ```
+#### Filter by status or by expected finish data
+For details check [views.py](https://github.com/eximius8/django-todo/blob/master/todoitems/views.py)
+By status
+```
+curl -X GET http://127.0.0.1:8000/api/todo-items/?status=N\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+```
+By finish date - date is null 
+```
+curl -X GET "http://127.0.0.1:8000/api/todo-items/?null=t"\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+```
+By finish date - date from to
+```
+curl -X GET "http://127.0.0.1:8000/api/todo-items/?start=2010-01-01&end=2021-01-01/"\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+```
+
 ### See particular item
 
 ```
