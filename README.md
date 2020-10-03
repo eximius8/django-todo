@@ -172,3 +172,50 @@ Response
     "status":"P"
 }
 ```
+
+#### Updated history
+
+```
+curl -X GET http://127.0.0.1:8000/api/todo-items/4/\
+ -H 'Authorization: Token 88268a1384ca93ca03845578bc0daa7ef90817df'
+ ```
+
+```
+{
+    "name":"Updated Todo item 1",
+    "description":"Updated description todo item 1",
+    "created_date":"2020-10-03T20:06:14.472946Z",
+    "expected_finish_date":"2020-10-20",
+    "status":"P",
+    "history":
+    [
+        {
+            "id":4,
+            "name":"Updated Todo item 1",
+            "description":"Updated description todo item 1",
+            "created_date":"2020-10-03T20:06:14.472946Z",
+            "expected_finish_date":"2020-10-20",
+            "status":"P",
+            "owner_id":4,
+            "history_id":8,
+            "history_date":"2020-10-03T20:18:56.644456Z",
+            "history_change_reason":null,
+            "history_type":"~",
+            "history_user_id":4
+        },
+        {
+            "id":4,"name":"Todo item 1",
+            "description":"Description todo item 1",
+            "created_date":"2020-10-03T20:06:14.472946Z",
+            "expected_finish_date":null,
+            "status":"N",
+            "owner_id":4,
+            "history_id":5,
+            "history_date":"2020-10-03T20:06:14.476899Z",
+            "history_change_reason":null,
+            "history_type":"+",
+            "history_user_id":4
+        }
+    ]
+    }
+```
